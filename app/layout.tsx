@@ -5,8 +5,11 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/darkmode";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import Link from "next/link";
+import React from "react";
+import { Navbar } from "@/components/navbar";
+import { Toaster } from "@/components/ui/toaster";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], adjustFontFallback: false });
 
 export const metadata: Metadata = {
   title: "Susilo Suharsono",
@@ -27,9 +30,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-              <p className="font-bold text-lg">Susilo Suharsono</p>
+          <main className="flex min-h-screen flex-col items-center space-y-10 p-20">
+            <div className="max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
+              <div className="flex items-center gap-4">
+                <Link href="/" className="font-bold text-xl">
+                  Susilo Suharsono
+                </Link>
+                <Navbar />
+              </div>
               <div className="flex items-center gap-4">
                 <ModeToggle />
                 <div className="flex items-center gap-4">
@@ -44,6 +52,7 @@ export default function RootLayout({
             </div>
             {children}
           </main>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
