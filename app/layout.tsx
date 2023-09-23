@@ -8,6 +8,7 @@ import Link from "next/link";
 import React from "react";
 import { Navbar } from "@/components/navbar";
 import { Toaster } from "@/components/ui/toaster";
+import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"], adjustFontFallback: false });
 
@@ -51,6 +52,23 @@ export default function RootLayout({
               </div>
             </div>
             {children}
+            <footer className="flex items-center justify-center w-full max-w-5xl h-24 border-t">
+              <div className="flex items-center justify-center space-x-4">
+                <Link
+                  href=" 
+                  https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+                >
+                  Powered by{" "}
+                  <Image
+                    src="/vercel.svg"
+                    alt="Vercel Logo"
+                    className="text-slate-50"
+                    width={72}
+                    height={16}
+                  />
+                </Link>
+              </div>
+            </footer>
           </main>
           <Toaster />
         </ThemeProvider>
