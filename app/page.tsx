@@ -1,88 +1,178 @@
+import React from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/ui/icon";
 import Image from "next/image";
+import { LuUser2, LuCircleDot, LuStar, LuGitFork } from "react-icons/lu";
+import { HeroSection } from "@/components/herosection";
 
-export default function Home() {
+type githubData = {
+  name: string;
+  html_url: string;
+  description: string;
+  language: string;
+  owner: {
+    avatar_url: string;
+  };
+  topics: string[];
+  watchers_count: number;
+  open_issues_count: number;
+  stargazers_count: number;
+  forks_count: number;
+};
+
+async function getGithubData(): Promise<githubData[] | undefined> {
+  const res = await fetch("https://api.github.com/users/susilo001/repos", {
+    headers: {
+      Accept: "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+    },
+    next: {
+      revalidate: 1300,
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return await res.json();
+}
+
+export default async function Home() {
+  const posts = await getGithubData();
+
+  console.log(posts);
+
   return (
-    <>
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+    <div className="max-w-5xl space-y-20">
+      <HeroSection />
+
+      <div className="space-y-4 flex flex-col items-center">
+        <h2 className="text-4xl font-bold">Projects</h2>
+        <p>Here are some of my projects that I have worked on.</p>
+        <div className="grid text-center lg:max-w-5xl lg:w-full lg:mb-0 sm:grid-cols-2 lg:grid-cols-3 lg:text-left">
+          {posts?.map((post, index) => (
+            <a
+              key={index}
+              href={post.html_url}
+              className={`${
+                post.name === "susilo001" ? "hidden" : ""
+              } group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30`}
+            >
+              <div className="space-y-2 w-full">
+                <div className="flex items-start gap-6 border-2 p-2 rounded-lg h-48">
+                  <div>
+                    <h3
+                      className={`text-xl font-semibold inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none`}
+                    >
+                      {post.name}
+                    </h3>
+                    <p className={`text-xs text-justify opacity-75`}>
+                      {post.description}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <LuUser2 className="h-4 w-4 text-gray-400" />
+                        {post.watchers_count}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <LuCircleDot className="h-4 w-4 text-gray-400" />
+                        {post.open_issues_count}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <LuStar className="h-4 w-4 text-gray-400" />
+                        {post.stargazers_count}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <LuGitFork className="h-4 w-4 text-gray-400" />
+                        {post.forks_count}
+                      </div>
+                    </div>
+                  </div>
+                  <Image
+                    src={post.owner.avatar_url}
+                    width={50}
+                    height={50}
+                    alt="illustration"
+                    className="rounded-lg"
+                  />
+                </div>
+
+                <div className="flex items-center gap-4 flex-wrap">
+                  <Icon
+                    iconName={post.language}
+                    className="h-[2rem] w-[2rem]"
+                  />
+                  {post.topics.map((topic, index) => (
+                    <Icon
+                      key={index}
+                      iconName={topic}
+                      className="h-[2rem] w-[2rem]"
+                    />
+                  ))}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className="space-y-4 flex flex-col items-center">
+        <h2 className="text-4xl font-bold">Skills</h2>
+        <p>
+          I have experience in building web applications using the following
+          technologies.
+        </p>
+        <div className="grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-5 lg:text-left">
+          {skills.map((skill, index) => (
+            <div
+              className="group rounded-lg border border-transparent px-5 py-4 "
+              key={index}
+            >
+              <h3 className={`text-lg font-semibold`}>
+                {skill.title}{" "}
+                <span>
+                  <Icon iconName={skill.title} className="h-[2rem] w-[2rem]" />
+                </span>
+              </h3>
+            </div>
+          ))}
+        </div>
       </div>
-    </>
+    </div>
   );
 }
+
+const skills = [
+  {
+    title: "PHP",
+  },
+  {
+    title: "Javascript",
+  },
+  {
+    title: "Typescript",
+  },
+  {
+    title: "Laravel",
+  },
+  {
+    title: "ReactJS",
+  },
+  {
+    title: "NodeJS",
+  },
+  {
+    title: "NextJS",
+  },
+  {
+    title: "TailwindCSS",
+  },
+  {
+    title: "ExpressJS",
+  },
+  {
+    title: "Docker",
+  },
+];
