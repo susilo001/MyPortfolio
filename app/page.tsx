@@ -3,13 +3,22 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import Image from "next/image";
+import { LuUser2, LuCircleDot, LuStar, LuGitFork } from "react-icons/lu";
+import { HeroSection } from "@/components/herosection";
 
 type githubData = {
   name: string;
   html_url: string;
   description: string;
   language: string;
+  owner: {
+    avatar_url: string;
+  };
   topics: string[];
+  watchers_count: number;
+  open_issues_count: number;
+  stargazers_count: number;
+  forks_count: number;
 };
 
 async function getGithubData(): Promise<githubData[] | undefined> {
@@ -33,49 +42,63 @@ async function getGithubData(): Promise<githubData[] | undefined> {
 export default async function Home() {
   const posts = await getGithubData();
 
+  console.log(posts);
+
   return (
     <div className="max-w-5xl space-y-20">
-      <div className="flex gap-2 items-center flex-col lg:flex-row">
-        <div className="space-y-2">
-          <h1 className="text-3xl font-mono">
-            <strong>Hello, I&apos;m Susilo Suharsono</strong>
-          </h1>
-          <p className="font-mono">Fullstack web developer.</p>
-          <p className="font-mono">
-            PHP & JavaScript Enthusiast Crafting web experiences with Laravel
-            and React.js Turning ideas into code
-          </p>
-          <Button asChild>
-            <Link href="/contact">Contact me</Link>
-          </Button>
-        </div>
-        <Image
-          src="https://picsum.photos/200"
-          alt="illustration"
-          width={200}
-          height={200}
-        />
-      </div>
+      <HeroSection />
 
       <div className="space-y-4 flex flex-col items-center">
         <h2 className="text-4xl font-bold">Projects</h2>
         <p>Here are some of my projects that I have worked on.</p>
-        <div className="grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-3 lg:text-left">
+        <div className="grid text-center lg:max-w-5xl lg:w-full lg:mb-0 sm:grid-cols-2 lg:grid-cols-3 lg:text-left">
           {posts?.map((post, index) => (
             <a
-              href={post.html_url}
-              className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
               key={index}
+              href={post.html_url}
+              className={`${
+                post.name === "susilo001" ? "hidden" : ""
+              } group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30`}
             >
               <div className="space-y-2 w-full">
-                <h3
-                  className={`text-xl font-semibold inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none`}
-                >
-                  {post.name}
-                </h3>
-                <p className={`text-sm text-justify opacity-75`}>
-                  {post.description}
-                </p>
+                <div className="flex items-start gap-6 border-2 p-2 rounded-lg h-48">
+                  <div>
+                    <h3
+                      className={`text-xl font-semibold inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none`}
+                    >
+                      {post.name}
+                    </h3>
+                    <p className={`text-xs text-justify opacity-75`}>
+                      {post.description}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <LuUser2 className="h-4 w-4 text-gray-400" />
+                        {post.watchers_count}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <LuCircleDot className="h-4 w-4 text-gray-400" />
+                        {post.open_issues_count}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <LuStar className="h-4 w-4 text-gray-400" />
+                        {post.stargazers_count}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <LuGitFork className="h-4 w-4 text-gray-400" />
+                        {post.forks_count}
+                      </div>
+                    </div>
+                  </div>
+                  <Image
+                    src={post.owner.avatar_url}
+                    width={50}
+                    height={50}
+                    alt="illustration"
+                    className="rounded-lg"
+                  />
+                </div>
+
                 <div className="flex items-center gap-4 flex-wrap">
                   <Icon
                     iconName={post.language}

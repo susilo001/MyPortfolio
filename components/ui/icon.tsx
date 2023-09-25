@@ -73,6 +73,9 @@ const iconMappings: {
 };
 
 export function Icon({ className, iconName }: IconProps) {
+  if (!iconName) {
+    return null;
+  }
   const normalizedIconName = iconName.toLowerCase();
   const iconData = iconMappings[normalizedIconName] || iconMappings["php"]; // Default to PHP if iconName is not found
 

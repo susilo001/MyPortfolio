@@ -57,7 +57,7 @@ export default function RootLayout({
                 <div className="lg:hidden">
                   <DropdownMenu>
                     <DropdownMenuTrigger>
-                      <Button variant="ghost" size="sm">
+                      <Button asChild variant="ghost" size="sm">
                         <HiBars3 className="h-[1.5rem] w-[1.5rem] text-[#181717] dark:text-[#E8E8E8]" />
                       </Button>
                     </DropdownMenuTrigger>
