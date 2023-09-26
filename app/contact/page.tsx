@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Form,
   FormControl,
@@ -62,31 +63,31 @@ export default function Contact() {
       ),
     });
 
-    // emailjs
-    //   .send(
-    //     process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-    //     process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-    //     data,
-    //     process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-    //   )
-    //   .then(
-    //     (result) => {
-    //       console.log(result.text);
-    //       toast({
-    //         title: "Email sent!",
-    //         description: "I will get back to you as soon as possible.",
-    //       });
-    //     },
-    //     (error) => {
-    //       console.log(error.text);
-    //       toast({
-    //         title: "Email failed to send!",
-    //         description: "Please try again later.",
-    //       });
-    //     }
-    //   );
+    emailjs
+      .send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        data,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          toast({
+            title: "Email sent!",
+            description: "I will get back to you as soon as possible.",
+          });
+        },
+        (error) => {
+          console.log(error.text);
+          toast({
+            title: "Email failed to send!",
+            description: "Please try again later.",
+          });
+        }
+      );
 
-    // form.reset();
+    form.reset();
   }
 
   return (
