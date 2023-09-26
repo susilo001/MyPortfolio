@@ -1,0 +1,32 @@
+[
+  {
+    "name": "PHP"
+  },
+  {
+    "name": "Javascript"
+  },
+  {
+    "name": "Typescript"
+  },
+  {
+    "name": "Laravel"
+  },
+  {
+    "name": "ReactJS"
+  },
+  {
+    "name": "NodeJS"
+  },
+  {
+    "name": "NextJS"
+  },
+  {
+    "name": "TailwindCSS"
+  },
+  {
+    "name": "ExpressJS"
+  },
+  {
+    "name": "Docker"
+  }
+]

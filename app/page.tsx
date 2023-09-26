@@ -1,10 +1,9 @@
 import React from "react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import Image from "next/image";
 import { LuUser2, LuCircleDot, LuStar, LuGitFork } from "react-icons/lu";
 import { HeroSection } from "@/components/herosection";
+import technologies from "../data/technologies.json";
 
 type githubData = {
   name: string;
@@ -42,8 +41,6 @@ async function getGithubData(): Promise<githubData[] | undefined> {
 export default async function Home() {
   const posts = await getGithubData();
 
-  console.log(posts);
-
   return (
     <div className="max-w-5xl space-y-20">
       <HeroSection />
@@ -61,42 +58,44 @@ export default async function Home() {
               } group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30`}
             >
               <div className="space-y-2 w-full">
-                <div className="flex items-start gap-6 border-2 p-2 rounded-lg h-48">
-                  <div>
-                    <h3
-                      className={`text-xl font-semibold inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none`}
-                    >
-                      {post.name}
-                    </h3>
-                    <p className={`text-xs text-justify opacity-75`}>
-                      {post.description}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <LuUser2 className="h-4 w-4 text-gray-400" />
-                        {post.watchers_count}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <LuCircleDot className="h-4 w-4 text-gray-400" />
-                        {post.open_issues_count}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <LuStar className="h-4 w-4 text-gray-400" />
-                        {post.stargazers_count}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <LuGitFork className="h-4 w-4 text-gray-400" />
-                        {post.forks_count}
-                      </div>
+                <div className="flex flex-col border-2 rounded-lg h-48 justify-between">
+                  <div className="flex items-start gap-6 p-2">
+                    <div>
+                      <h3
+                        className={`text-xl font-semibold inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none`}
+                      >
+                        {post.name}
+                      </h3>
+                      <p className={`text-xs text-justify opacity-75`}>
+                        {post.description}
+                      </p>
+                    </div>
+                    <Image
+                      src={post.owner.avatar_url}
+                      width={50}
+                      height={50}
+                      alt="illustration"
+                      className="rounded-lg"
+                    />
+                  </div>
+                  <div className="flex items-center justify-between border-t p-2">
+                    <div className="flex items-center gap-2">
+                      <LuUser2 className="h-4 w-4 text-gray-400" />
+                      {post.watchers_count}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <LuCircleDot className="h-4 w-4 text-gray-400" />
+                      {post.open_issues_count}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <LuStar className="h-4 w-4 text-gray-400" />
+                      {post.stargazers_count}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <LuGitFork className="h-4 w-4 text-gray-400" />
+                      {post.forks_count}
                     </div>
                   </div>
-                  <Image
-                    src={post.owner.avatar_url}
-                    width={50}
-                    height={50}
-                    alt="illustration"
-                    className="rounded-lg"
-                  />
                 </div>
 
                 <div className="flex items-center gap-4 flex-wrap">
@@ -125,15 +124,18 @@ export default async function Home() {
           technologies.
         </p>
         <div className="grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-5 lg:text-left">
-          {skills.map((skill, index) => (
+          {technologies.map((technology, index) => (
             <div
               className="group rounded-lg border border-transparent px-5 py-4 "
               key={index}
             >
-              <h3 className={`text-lg font-semibold`}>
-                {skill.title}{" "}
+              <h3 className={`font-semibold`}>
+                {technology.name}{" "}
                 <span>
-                  <Icon iconName={skill.title} className="h-[2rem] w-[2rem]" />
+                  <Icon
+                    iconName={technology.name}
+                    className="h-[2rem] w-[2rem]"
+                  />
                 </span>
               </h3>
             </div>
@@ -143,36 +145,3 @@ export default async function Home() {
     </div>
   );
 }
-
-const skills = [
-  {
-    title: "PHP",
-  },
-  {
-    title: "Javascript",
-  },
-  {
-    title: "Typescript",
-  },
-  {
-    title: "Laravel",
-  },
-  {
-    title: "ReactJS",
-  },
-  {
-    title: "NodeJS",
-  },
-  {
-    title: "NextJS",
-  },
-  {
-    title: "TailwindCSS",
-  },
-  {
-    title: "ExpressJS",
-  },
-  {
-    title: "Docker",
-  },
-];
