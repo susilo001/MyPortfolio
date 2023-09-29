@@ -42,12 +42,16 @@ export default async function Home() {
   const posts = await getGithubData();
 
   return (
-    <div className="max-w-5xl space-y-20">
+    <div className="space-y-10">
       <HeroSection />
 
-      <div className="space-y-4 flex flex-col items-center">
-        <h2 className="text-4xl font-bold">Projects</h2>
-        <p>Here are some of my projects that I have worked on.</p>
+      <div className="space-y-4 flex flex-col">
+        <div>
+          <h2 className="text-xl lg:text-2xl font-bold">Projects</h2>
+          <p className="text-sm lg:text-lg">
+            Here are some of my projects that I have worked on.
+          </p>
+        </div>
         <div className="grid text-center lg:max-w-5xl lg:w-full lg:mb-0 sm:grid-cols-2 lg:grid-cols-3 lg:text-left">
           {posts?.map((post, index) => (
             <a
@@ -55,28 +59,17 @@ export default async function Home() {
               href={post.html_url}
               className={`${
                 post.name === "susilo001" ? "hidden" : ""
-              } group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30`}
+              } group rounded-lg border border-transparent px-4 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30`}
             >
               <div className="space-y-2 w-full">
-                <div className="flex flex-col border-2 rounded-lg h-48 justify-between">
-                  <div className="flex items-start gap-6 p-2">
-                    <div>
-                      <h3
-                        className={`text-xl font-semibold inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none`}
-                      >
-                        {post.name}
-                      </h3>
-                      <p className={`text-xs text-justify opacity-75`}>
-                        {post.description}
-                      </p>
-                    </div>
-                    <Image
-                      src={post.owner.avatar_url}
-                      width={50}
-                      height={50}
-                      alt="illustration"
-                      className="rounded-lg"
-                    />
+                <div className="flex flex-col  rounded-lg h-48 justify-between">
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-semibold inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+                      {post.name}
+                    </h3>
+                    <p className="text-xs text-justify opacity-75">
+                      {post.description}
+                    </p>
                   </div>
                   <div className="flex items-center justify-between border-t p-2">
                     <div className="flex items-center gap-2">
@@ -98,16 +91,16 @@ export default async function Home() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 flex-wrap">
+                <div className="flex items-center gap-4 flex-wrap border-y p-2">
                   <Icon
                     iconName={post.language}
-                    className="h-[2rem] w-[2rem]"
+                    className="h-[1.5rem] w-[1.5rem]"
                   />
                   {post.topics.map((topic, index) => (
                     <Icon
                       key={index}
                       iconName={topic}
-                      className="h-[2rem] w-[2rem]"
+                      className="h-[1.5rem] w-[1.5rem]"
                     />
                   ))}
                 </div>
@@ -117,27 +110,25 @@ export default async function Home() {
         </div>
       </div>
 
-      <div className="space-y-4 flex flex-col items-center">
-        <h2 className="text-4xl font-bold">Skills</h2>
-        <p>
-          I have experience in building web applications using the following
-          technologies.
-        </p>
-        <div className="grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-5 lg:text-left">
+      <div className="space-y-4 flex flex-col">
+        <div>
+          <h2 className="text-xl lg:text-2xl font-bold">Technologies</h2>
+          <p className="text-sm lg:text-lg">
+            I have experience in building web applications using the following
+            technologies.
+          </p>
+        </div>
+        <div className="grid grid-cols-2 text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-5 lg:text-left">
           {technologies.map((technology, index) => (
             <div
-              className="group rounded-lg border border-transparent px-5 py-4 "
               key={index}
+              className="group rounded-lg border border-transparent px-5 py-4 flex flex-col sm:flex-row items-center justify-center gap-2"
             >
-              <h3 className={`font-semibold`}>
-                {technology.name}{" "}
-                <span>
-                  <Icon
-                    iconName={technology.name}
-                    className="h-[2rem] w-[2rem]"
-                  />
-                </span>
-              </h3>
+              <Icon
+                iconName={technology.name}
+                className="h-[1.5rem] w-[1.5rem]"
+              />
+              <h3 className="font-semibold">{technology.name}</h3>
             </div>
           ))}
         </div>

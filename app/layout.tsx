@@ -28,9 +28,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="flex min-h-screen flex-col items-center space-y-10 p-10 lg:p-20 justify-between">
+          <main className="flex min-h-screen flex-col items-center space-y-8 p-5 sm:p-10 lg:p-20 justify-between">
             <Header />
-            {children}
+
+            <div className="max-w-5xl">{children}</div>
             <Footer />
           </main>
           <Toaster />
