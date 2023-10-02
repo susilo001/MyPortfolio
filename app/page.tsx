@@ -1,6 +1,5 @@
 import React from "react";
 import { Icon } from "@/components/ui/icon";
-import Image from "next/image";
 import { LuUser2, LuCircleDot, LuStar, LuGitFork } from "react-icons/lu";
 import { HeroSection } from "@/components/herosection";
 import technologies from "../data/technologies.json";
