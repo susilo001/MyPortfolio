@@ -11,14 +11,7 @@ export function HeroSection() {
     <div className="flex lg:justify-between items-center flex-col lg:flex-row gap-8">
       <div className="space-y-2 basis-3/5">
         <h1 className="text-lg lg:text-3xl font-mono">
-          <Typewriter
-            onInit={(typewriter) => {
-              typewriter
-                .typeString("<strong>Hi, I&apos;m Susilo Suharsono</strong>")
-                .pauseFor(1000)
-                .start();
-            }}
-          />
+          <strong>Hi,I&apos;m Susilo Suharsono</strong>
         </h1>
         <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-green-500 text-transparent bg-clip-text">
           Fullstack Web Developer.
