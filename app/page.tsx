@@ -41,7 +41,7 @@ export default async function Home() {
   const posts = await getGithubData();
 
   return (
-    <div className="space-y-10">
+    <div className="sm:space-y-32 space-y-8">
       <HeroSection />
 
       <div className="space-y-4 flex flex-col">

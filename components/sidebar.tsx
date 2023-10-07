@@ -26,8 +26,6 @@ export function Sidebar() {
     setTheme(isDark ? "light" : "dark");
   };
 
-  console.log(isDark);
-
   return (
     <Sheet>
       <SheetTrigger>

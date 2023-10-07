@@ -92,7 +92,10 @@ export default function Contact() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="lg:w-[48rem] sm:w-[24rem] max-w-full space-y-4"
+      >
         <FormField
           control={form.control}
           name="email"
@@ -129,7 +132,7 @@ export default function Contact() {
                 <Textarea placeholder="Enter your message" {...field} />
               </FormControl>
               <FormDescription>
-                <span className="text-gray-500">Max 160 characters</span>
+                <span>Max 160 characters</span>
               </FormDescription>
               <FormMessage />
             </FormItem>
