@@ -44,7 +44,7 @@ export default async function Home() {
     <div className="sm:space-y-32 space-y-8">
       <HeroSection />
 
-      <div className="space-y-4 flex flex-col">
+      <div id="project" className="space-y-4 flex flex-col">
         <div>
           <h2 className="text-xl lg:text-2xl font-bold">Projects</h2>
           <p className="text-sm lg:text-lg">
@@ -109,7 +109,7 @@ export default async function Home() {
         </div>
       </div>
 
-      <div className="space-y-4 flex flex-col">
+      <div id="technology" className="space-y-4 flex flex-col">
         <div>
           <h2 className="text-xl lg:text-2xl font-bold">Technologies</h2>
           <p className="text-sm lg:text-lg">

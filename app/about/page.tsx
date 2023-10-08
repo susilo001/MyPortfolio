@@ -5,7 +5,9 @@ async function getGithubProfile() {
   const res = await fetch(
     "https://raw.githubusercontent.com/susilo001/susilo001/main/README.md",
     {
-      cache: "no-store",
+      next: {
+        revalidate: 1300,
+      },
     }
   );
 
