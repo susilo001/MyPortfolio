@@ -1,6 +1,7 @@
 import { SiGithub, SiLinkedin } from "react-icons/si";
 import Link from "next/link";
 import React from "react";
+import { Button } from "@/components/ui/button";
 
 export function Footer() {
   return (
@@ -12,13 +13,17 @@ export function Footer() {
         <span className="text-sm">susiloodie@gmail.com</span>
       </div>
 
-      <div className="flex items-center justify-center sm:justify-end gap-2">
-        <Link href="https://github.com/susilo001">
-          <SiGithub className="h-[1.5rem] w-[1.5rem] text-[#181717] dark:text-[#E8E8E8]" />
-        </Link>
-        <Link href="https://www.linkedin.com/in/susilosuharsono/">
-          <SiLinkedin className="h-[1.5rem] w-[1.5rem] text-[#0A66C2]" />
-        </Link>
+      <div className="flex items-center justify-center sm:justify-end">
+        <Button size="icon" variant="ghost">
+          <Link href="https://github.com/susilo001">
+            <SiGithub className="h-[1.5rem] w-[1.5rem] text-[#181717] dark:text-[#E8E8E8]" />
+          </Link>
+        </Button>
+        <Button size="icon" variant="ghost">
+          <Link href="https://www.linkedin.com/in/susilosuharsono/">
+            <SiLinkedin className="h-[1.5rem] w-[1.5rem] text-[#0A66C2]" />
+          </Link>
+        </Button>
       </div>
     </footer>
   );
